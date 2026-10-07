@@ -15,6 +15,8 @@ public class ClockEngine {
     public static String translateFiveHours(int hours) {
         if (hours == 20) {
             return "RRRR";
+        } else if (hours == 10) {
+            return "RROO";
         } else if (hours == 0) {
             return "OOOO";
         }
