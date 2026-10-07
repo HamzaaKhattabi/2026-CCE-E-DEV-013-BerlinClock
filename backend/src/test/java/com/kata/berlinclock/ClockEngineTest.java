@@ -30,4 +30,10 @@ public class ClockEngineTest {
         assertThatThrownBy(() -> ClockEngine.translateSeconds(60))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void seconds_lamp_turned_off_when_seconds_is_59() {
+        assertThat(ClockEngine.translateSeconds(59))
+                .isEqualTo("O");
+    }
 }
