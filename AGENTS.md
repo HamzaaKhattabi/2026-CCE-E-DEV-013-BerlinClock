@@ -14,6 +14,7 @@ Berlin Clock exercise. The deliverable is a **public GitHub repository** named `
 ## TDD workflow (backend)
 
 - One vertical slice at a time: write **one** failing test, then the minimum code to make it pass. Never write all the tests first.
+- Tests of the same family may be grouped in one red/green cycle. A family is a set of tests that check **one rule** and that a single implementation makes pass (e.g. both bounds of the same validation: below the minimum and above the maximum). Commit them together in one `[RED]` commit, then one `[GREEN]` commit. Tests that need different logic stay in separate cycles.
 - The red test must compile and fail on its assertion (stub returning `null` is fine), not on a missing class.
 - Make the green step as dumb as needed (hard-coded value is fine); the next test forces the real logic.
 - Refactoring (abstraction, extraction) comes after green, never before the tests that justify it.
