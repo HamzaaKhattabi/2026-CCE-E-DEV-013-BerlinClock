@@ -90,4 +90,10 @@ public class ClockEngineTest {
         assertThat(ClockEngine.translateOneHours(4))
                 .isEqualTo("RRRR");
     }
+
+    @Test
+    void all_one_hours_lamps_turned_on_when_hour_is_14() {
+        assertThat(ClockEngine.translateOneHours(14))
+                .isEqualTo("RRRR");
+    }
 }
