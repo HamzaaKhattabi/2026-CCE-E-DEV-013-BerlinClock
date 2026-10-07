@@ -1,5 +1,33 @@
 # AGENTS.md
 
+## Project requirements (from the instructors)
+
+Berlin Clock exercise. The deliverable is a **public GitHub repository** named `2026-CCE-E-DEV-013-BerlinClock`.
+
+- Backend: **Java + Spring**, developed with a **TDD approach**.
+- Frontend: **React** (visual design is not important).
+- `README.md` must contain everything needed to compile and run the code. The application must run and fulfil the requirements.
+- AI usage is encouraged, but the author must be able to explain every choice made. Produce the best code possible.
+- The instructors evaluate the **overall approach**, not only the final code. A single commit with the whole solution, or a solution without tests, will not be reviewed.
+- Budget: a few hours maximum.
+
+## TDD workflow (backend)
+
+- One vertical slice at a time: write **one** failing test, then the minimum code to make it pass. Never write all the tests first.
+- The red test must compile and fail on its assertion (stub returning `null` is fine), not on a missing class.
+- Make the green step as dumb as needed (hard-coded value is fine); the next test forces the real logic.
+- Refactoring (abstraction, extraction) comes after green, never before the tests that justify it.
+- Expected values come from the spec as literals (`"Y"`, `"ROOO"`), never recomputed with the production logic.
+- Test names read as a specification: `seconds_lamp_turned_on_when_seconds_even`. One behavior per test.
+- Lamps use letters: `Y` yellow, `R` red, `O` off (letter O, not zero).
+
+### Commit the TDD steps
+
+Every step of the process must be visible in the history:
+
+- Commit the **red** test on its own (`test(...)`), then the **green** implementation (`feat(...)`), then each refactoring (`refactor(...)`).
+- Never squash the steps into one commit.
+
 ## Git commit convention
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): description`
