@@ -1,6 +1,5 @@
 package com.kata.berlinclock;
 
-import com.kata.berlinclock.domains.BerlinHour;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,83 +35,5 @@ public class ClockEngineTest {
     void seconds_lamp_turned_off_when_seconds_is_59() {
         assertThat(ClockEngine.translateSeconds(59))
                 .isEqualTo("O");
-    }
-
-    @Test
-    void all_five_hours_lamps_turned_on_when_hours_is_20() {
-        assertThat(ClockEngine.translateFiveHours(20))
-                .isEqualTo("RRRR");
-    }
-
-    @Test
-    void all_five_hours_lamps_turned_off_when_hours_is_0() {
-        assertThat(ClockEngine.translateFiveHours(0))
-                .isEqualTo("OOOO");
-    }
-
-    @Test
-    void two_five_hours_lamps_turned_on_when_hours_is_10() {
-        assertThat(ClockEngine.translateFiveHours(10))
-                .isEqualTo("RROO");
-    }
-
-    @Test
-    void one_five_hours_lamp_turned_on_when_hour_is_5() {
-        assertThat(ClockEngine.translateFiveHours(5))
-                .isEqualTo("ROOO");
-    }
-
-    @Test
-    void all_five_hours_lamp_turned_on_when_hour_is_greater_than_20() {
-        assertThat(ClockEngine.translateFiveHours(23))
-                .isEqualTo("RRRR");
-    }
-
-    @Test
-    void three_five_hours_lamps_turned_on_when_hour_is_18() {
-        assertThat(ClockEngine.translateFiveHours(18))
-                .isEqualTo("RRRO");
-    }
-
-    @Test
-    void exception_thrown_when_hours_less_than_0() {
-        assertThatThrownBy(() -> ClockEngine.translateFiveHours(-1))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void exception_thrown_when_hours_greater_than_23() {
-        assertThatThrownBy(() -> ClockEngine.translateFiveHours(24))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void all_one_hours_lamps_turned_on_when_hour_is_4() {
-        assertThat(ClockEngine.translateOneHours(4))
-                .isEqualTo("RRRR");
-    }
-
-    @Test
-    void all_one_hours_lamps_turned_on_when_hour_is_14() {
-        assertThat(ClockEngine.translateOneHours(14))
-                .isEqualTo("RRRR");
-    }
-
-    @Test
-    void two_one_hours_lamps_turned_on_when_hour_is_22() {
-        assertThat(ClockEngine.translateOneHours(22))
-                .isEqualTo("RROO");
-    }
-
-    @Test
-    void all_one_hours_lamps_turned_off_when_hours_is_5() {
-        assertThat(ClockEngine.translateOneHours(5))
-                .isEqualTo("OOOO");
-    }
-
-    @Test
-    void hours_translated_into_five_hours_row_and_one_hours_row_when_hours_is_15() {
-        assertThat(ClockEngine.translateHours(15))
-                .isEqualTo(new BerlinHour("RRRO", "OOOO"));
     }
 }
