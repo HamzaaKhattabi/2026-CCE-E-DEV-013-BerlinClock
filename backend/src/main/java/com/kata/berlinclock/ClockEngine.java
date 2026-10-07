@@ -18,7 +18,10 @@ public class ClockEngine {
     }
 
     public static BerlinHour translateHours(int hours) {
-        return null;
+        String firstRow = translateFiveHours(hours);
+        String secondRow = translateOneHours(hours);
+
+        return new BerlinHour(firstRow, secondRow);
     }
 
     public static String translateFiveHours(int hours) {
