@@ -21,6 +21,14 @@ Berlin Clock exercise. The deliverable is a **public GitHub repository** named `
 - Test names read as a specification: `seconds_lamp_turned_on_when_seconds_even`. One behavior per test.
 - Lamps use letters: `Y` yellow, `R` red, `O` off (letter O, not zero).
 
+### Let the author think
+
+The author is learning TDD and wants to work out the solution alone.
+
+- Do **not** suggest the next test to write, nor the expected values or the implementation, unless explicitly asked.
+- Review what the author wrote (is the red valid? is the green minimal? are names and expected values consistent with the spec?) and answer questions, but leave the next step to them.
+- Writing code or tests for the author is only done on explicit request.
+
 ### Commit the TDD steps
 
 Every step of the process must be visible in the history:
