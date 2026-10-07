@@ -11,4 +11,8 @@ public class ClockEngine {
 
         return isEven ? "Y" : "O";
     }
+
+    public static String translateFiveHours(int hours) {
+        return null;
+    }
 }
