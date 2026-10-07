@@ -9,23 +9,20 @@ public class ClockEngine {
             throw new IllegalArgumentException();
         }
 
-        return isEven ? "Y" : "O";
+        return isEven ? Lamp.YELLOW.getIndicator() : Lamp.OFF.getIndicator();
     }
 
     public static String translateFiveHours(int hours) {
+        int maxLength = 4;
+        int multiple = 5;
+
         if (hours < 0 || hours > 23) {
             throw new IllegalArgumentException();
         }
-        if (hours >= 20) {
-            return "RRRR";
-        } else if (hours == 10) {
-            return "RROO";
-        } else if (hours == 5) {
-            return "ROOO";
-        } else if (hours == 0) {
-            return "OOOO";
-        }
 
-        return null;
+        int redLampCount = hours / multiple;
+
+        return Lamp.RED.getIndicator().repeat(redLampCount)
+                .concat(Lamp.OFF.getIndicator().repeat(maxLength - redLampCount));
     }
 }
