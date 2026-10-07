@@ -27,6 +27,14 @@ Every step of the process must be visible in the history:
 
 - Commit the **red** test on its own (`test(...)`), then the **green** implementation (`feat(...)`), then each refactoring (`refactor(...)`).
 - Never squash the steps into one commit.
+- Tag the TDD phase in the subject, right after the scope: `[RED]` for the failing test, `[GREEN]` for the implementation that makes it pass. The red and green commits of a cycle keep the **same sentence**; only the tag changes.
+- Refactoring commits keep the plain `refactor(...)` type, with no tag.
+
+```
+test(backend): [RED] seconds lamp is on when seconds are even
+feat(backend): [GREEN] seconds lamp is on when seconds are even
+refactor(backend): extract seconds lamp rendering
+```
 
 ## Git commit convention
 
