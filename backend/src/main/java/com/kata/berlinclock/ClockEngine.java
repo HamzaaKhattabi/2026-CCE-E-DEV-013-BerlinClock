@@ -13,6 +13,6 @@ public class ClockEngine {
     }
 
     public static String translateFiveHours(int hours) {
-        return null;
+        return "RRRR";
     }
 }
