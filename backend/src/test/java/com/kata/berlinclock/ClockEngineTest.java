@@ -68,6 +68,12 @@ public class ClockEngineTest {
     }
 
     @Test
+    void three_five_hours_lamps_turned_on_when_hour_is_18() {
+        assertThat(ClockEngine.translateFiveHours(18))
+                .isEqualTo("RRRO");
+    }
+
+    @Test
     void exception_thrown_when_hours_less_than_0() {
         assertThatThrownBy(() -> ClockEngine.translateFiveHours(-1))
                 .isInstanceOf(IllegalArgumentException.class);
