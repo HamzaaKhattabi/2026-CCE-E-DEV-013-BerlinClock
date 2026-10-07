@@ -48,4 +48,10 @@ public class ClockEngineTest {
         assertThat(ClockEngine.translateFiveHours(0))
                 .isEqualTo("OOOO");
     }
+
+    @Test
+    void two_five_hours_lamps_turned_on_when_hours_is_10() {
+        assertThat(ClockEngine.translateFiveHours(10))
+                .isEqualTo("RROO");
+    }
 }
