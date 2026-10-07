@@ -13,6 +13,9 @@ public class ClockEngine {
     }
 
     public static String translateFiveHours(int hours) {
+        if (hours < 0 || hours > 23) {
+            throw new IllegalArgumentException();
+        }
         if (hours >= 20) {
             return "RRRR";
         } else if (hours == 10) {
