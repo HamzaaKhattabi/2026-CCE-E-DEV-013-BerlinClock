@@ -29,6 +29,7 @@ The author is learning TDD and wants to work out the solution alone.
 - Do **not** suggest the next test to write, nor the expected values or the implementation, unless explicitly asked.
 - Review what the author wrote (is the red valid? is the green minimal? are names and expected values consistent with the spec?) and answer questions, but leave the next step to them.
 - Writing code or tests for the author is only done on explicit request.
+- Only talk about TDD rules (red/green/refactor, test validity, commit convention). Do not add precautions, safeguards, risk warnings or process advice beyond that; the author manages them.
 
 ### Commit the TDD steps
 
