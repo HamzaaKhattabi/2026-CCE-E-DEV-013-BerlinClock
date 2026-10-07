@@ -11,4 +11,10 @@ public class ClockEngineTest {
         assertThat(ClockEngine.translateSeconds(0))
                 .isEqualTo("Y");
     }
+
+    @Test
+    void seconds_lamp_turned_off_when_seconds_odd() {
+        assertThat(ClockEngine.translateSeconds(1))
+                .isEqualTo("O");
+    }
 }
