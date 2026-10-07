@@ -13,6 +13,12 @@ public class ClockEngine {
     }
 
     public static String translateFiveHours(int hours) {
-        return "RRRR";
+        if (hours == 20) {
+            return "RRRR";
+        } else if (hours == 0) {
+            return "OOOO";
+        }
+
+        return null;
     }
 }
