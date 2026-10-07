@@ -1,5 +1,7 @@
 package com.kata.berlinclock;
 
+import com.kata.berlinclock.domains.BerlinHour;
+
 public class ClockEngine {
 
     private static final int HOURS_ROW_LAMP_COUNT = 4;
@@ -15,8 +17,11 @@ public class ClockEngine {
         return isEven ? Lamp.YELLOW.getIndicator() : Lamp.OFF.getIndicator();
     }
 
-    public static String translateFiveHours(int hours) {
+    public static BerlinHour translateHours(int hours) {
+        return null;
+    }
 
+    public static String translateFiveHours(int hours) {
         if (hours < 0 || hours > 23) {
             throw new IllegalArgumentException();
         }

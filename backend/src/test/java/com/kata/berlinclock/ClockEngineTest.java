@@ -1,5 +1,6 @@
 package com.kata.berlinclock;
 
+import com.kata.berlinclock.domains.BerlinHour;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -107,5 +108,11 @@ public class ClockEngineTest {
     void all_one_hours_lamps_turned_off_when_hours_is_5() {
         assertThat(ClockEngine.translateOneHours(5))
                 .isEqualTo("OOOO");
+    }
+
+    @Test
+    void hours_translated_into_five_hours_row_and_one_hours_row_when_hours_is_15() {
+        assertThat(ClockEngine.translateHours(15))
+                .isEqualTo(new BerlinHour("RRRO", "OOOO"));
     }
 }
