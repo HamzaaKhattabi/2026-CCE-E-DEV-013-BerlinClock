@@ -17,6 +17,8 @@ public class ClockEngine {
             return "RRRR";
         } else if (hours == 10) {
             return "RROO";
+        } else if (hours == 5) {
+            return "ROOO";
         } else if (hours == 0) {
             return "OOOO";
         }
