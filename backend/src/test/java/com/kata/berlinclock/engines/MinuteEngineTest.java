@@ -17,4 +17,10 @@ class MinuteEngineTest {
                 .isEqualTo("YYRYYRYYRYY");
     }
 
+    @Test
+    void all_five_minutes_lamps_turned_off_when_minutes_is_0() {
+        BerlinMinute berlinMinute = secondEngine.translate(0);
+        assertThat(berlinMinute.firstRow())
+                .isEqualTo("OOOOOOOOOOO");
+    }
 }
