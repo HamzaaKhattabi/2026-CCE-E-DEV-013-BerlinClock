@@ -2,6 +2,9 @@ package com.kata.berlinclock;
 
 public class ClockEngine {
 
+    private static final int HOURS_ROW_LAMP_COUNT = 4;
+    private static final int HOURS_PER_FIVE_HOURS_LAMP = 5;
+
     public static String translateSeconds(int seconds) {
         boolean isEven = seconds % 2 == 0;
 
@@ -13,24 +16,21 @@ public class ClockEngine {
     }
 
     public static String translateFiveHours(int hours) {
-        int maxLength = 4;
-        int multiple = 5;
 
         if (hours < 0 || hours > 23) {
             throw new IllegalArgumentException();
         }
 
-        int redLampCount = hours / multiple;
+        int litLampCount = hours / HOURS_PER_FIVE_HOURS_LAMP;
 
-        return Lamp.RED.getIndicator().repeat(redLampCount)
-                .concat(Lamp.OFF.getIndicator().repeat(maxLength - redLampCount));
+        return Lamp.RED.getIndicator().repeat(litLampCount)
+                .concat(Lamp.OFF.getIndicator().repeat(HOURS_ROW_LAMP_COUNT - litLampCount));
     }
 
     public static String translateOneHours(int hours) {
-        int maxLength = 4;
-        int redLampCount = hours % 5;
+        int litLampCount = hours % HOURS_PER_FIVE_HOURS_LAMP;
 
-        return Lamp.RED.getIndicator().repeat(redLampCount)
-                .concat(Lamp.OFF.getIndicator().repeat(maxLength - redLampCount));
+        return Lamp.RED.getIndicator().repeat(litLampCount)
+                .concat(Lamp.OFF.getIndicator().repeat(HOURS_ROW_LAMP_COUNT - litLampCount));
     }
 }
