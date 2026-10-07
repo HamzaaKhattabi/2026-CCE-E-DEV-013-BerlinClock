@@ -84,4 +84,10 @@ public class ClockEngineTest {
         assertThatThrownBy(() -> ClockEngine.translateFiveHours(24))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void all_one_hours_lamps_turned_on_when_hour_is_4() {
+        assertThat(ClockEngine.translateOneHours(4))
+                .isEqualTo("RRRR");
+    }
 }

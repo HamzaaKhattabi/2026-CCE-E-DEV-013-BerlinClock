@@ -25,4 +25,8 @@ public class ClockEngine {
         return Lamp.RED.getIndicator().repeat(redLampCount)
                 .concat(Lamp.OFF.getIndicator().repeat(maxLength - redLampCount));
     }
+
+    public static String translateOneHours(int hours) {
+        return null;
+    }
 }
