@@ -66,4 +66,16 @@ public class ClockEngineTest {
         assertThat(ClockEngine.translateFiveHours(23))
                 .isEqualTo("RRRR");
     }
+
+    @Test
+    void exception_thrown_when_hours_less_than_0() {
+        assertThatThrownBy(() -> ClockEngine.translateFiveHours(-1))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void exception_thrown_when_hours_greater_than_23() {
+        assertThatThrownBy(() -> ClockEngine.translateFiveHours(24))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
