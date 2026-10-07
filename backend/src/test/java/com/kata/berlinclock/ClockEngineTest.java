@@ -102,4 +102,10 @@ public class ClockEngineTest {
         assertThat(ClockEngine.translateOneHours(22))
                 .isEqualTo("RROO");
     }
+
+    @Test
+    void all_one_hours_lamps_turned_off_when_hours_is_5() {
+        assertThat(ClockEngine.translateOneHours(5))
+                .isEqualTo("OOOO");
+    }
 }
