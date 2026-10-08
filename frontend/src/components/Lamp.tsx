@@ -1,6 +1,5 @@
+import type { LampIndicator } from '../lib/lamp'
 import './Lamp.css'
-
-export type LampIndicator = 'Y' | 'R' | 'O'
 
 type LampProps = {
   indicator: LampIndicator
