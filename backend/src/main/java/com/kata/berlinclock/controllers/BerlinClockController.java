@@ -22,7 +22,7 @@ public class BerlinClockController {
     }
 
     @GetMapping("/berlin-clock")
-    public BerlinClock translate(@RequestParam("time") String time) {
+    public BerlinClock getBerlinClock(@RequestParam("time") String time) {
         LocalTime localTime = timeParser.parse(time);
 
         return berlinClockService.translate(localTime);
