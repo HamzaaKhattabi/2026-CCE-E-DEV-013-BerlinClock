@@ -4,6 +4,8 @@ export type BerlinClock = {
   minutes: { firstRow: string; secondRow: string }
 }
 
-export async function fetchBerlinClock(_time: string): Promise<BerlinClock> {
-  throw new Error('Not implemented')
+export async function fetchBerlinClock(time: string): Promise<BerlinClock> {
+  const response = await fetch(`/berlin-clock?${new URLSearchParams({ time })}`)
+
+  return response.json()
 }
