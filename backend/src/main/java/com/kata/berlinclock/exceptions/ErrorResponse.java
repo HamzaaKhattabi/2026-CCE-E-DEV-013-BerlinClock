@@ -1,4 +1,4 @@
-package com.kata.berlinclock.domains;
+package com.kata.berlinclock.exceptions;
 
 import java.time.Instant;
 

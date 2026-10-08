@@ -1,6 +1,5 @@
 package com.kata.berlinclock.exceptions;
 
-import com.kata.berlinclock.domains.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
