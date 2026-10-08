@@ -1,4 +1,4 @@
-package com.kata.berlinclock;
+package com.kata.berlinclock.domains;
 
 public enum Lamp {
     OFF("O"),

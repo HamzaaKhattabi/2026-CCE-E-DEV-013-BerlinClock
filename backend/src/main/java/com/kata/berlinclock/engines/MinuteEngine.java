@@ -1,7 +1,7 @@
 package com.kata.berlinclock.engines;
 
-import com.kata.berlinclock.Lamp;
 import com.kata.berlinclock.domains.BerlinMinute;
+import com.kata.berlinclock.domains.Lamp;
 import com.kata.berlinclock.exceptions.InvalidTimeException;
 import org.springframework.stereotype.Component;
 
