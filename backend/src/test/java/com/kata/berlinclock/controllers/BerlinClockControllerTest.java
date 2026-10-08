@@ -69,4 +69,13 @@ class BerlinClockControllerTest {
                 .andExpect(jsonPath("$.minutes.firstRow").value("YYRYYRYYRYY"))
                 .andExpect(jsonPath("$.minutes.secondRow").value("YYYY"));
     }
+
+    @Test
+    void bad_request_is_returned_when_time_is_not_accepted() throws Exception {
+        when(hourEngine.translate(25))
+                .thenThrow(new IllegalArgumentException());
+
+        mockMvc.perform(get("/berlin-clock").param("time", "25:00:00"))
+                .andExpect(status().isBadRequest());
+    }
 }
