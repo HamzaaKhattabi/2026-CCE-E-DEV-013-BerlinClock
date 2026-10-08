@@ -7,6 +7,7 @@ import com.kata.berlinclock.engines.HourEngine;
 import com.kata.berlinclock.engines.MinuteEngine;
 import com.kata.berlinclock.engines.SecondEngine;
 import com.kata.berlinclock.exceptions.GlobalExceptionHandler;
+import com.kata.berlinclock.parsers.TimeParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,7 +38,8 @@ class BerlinClockControllerTest {
                 .standaloneSetup(new BerlinClockController(
                         secondEngine,
                         hourEngine,
-                        minuteEngine))
+                        minuteEngine,
+                        new TimeParser()))
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
     }
