@@ -1,6 +1,7 @@
 package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.domains.BerlinSecond;
+import com.kata.berlinclock.exceptions.InvalidTimeException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,5 +42,19 @@ class SecondEngineTest {
         BerlinSecond berlinSecond = secondEngine.translate(59);
         assertThat(berlinSecond.firstRow())
                 .isEqualTo("O");
+    }
+
+    @Test
+    void exception_message_states_valid_range_when_seconds_less_than_0() {
+        assertThatThrownBy(() -> secondEngine.translate(-1))
+                .isInstanceOf(InvalidTimeException.class)
+                .hasMessage("Seconds must be between 0 and 59");
+    }
+
+    @Test
+    void exception_message_states_valid_range_when_seconds_greater_than_59() {
+        assertThatThrownBy(() -> secondEngine.translate(60))
+                .isInstanceOf(InvalidTimeException.class)
+                .hasMessage("Seconds must be between 0 and 59");
     }
 }

@@ -1,6 +1,7 @@
 package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.domains.BerlinMinute;
+import com.kata.berlinclock.exceptions.InvalidTimeException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -94,5 +95,19 @@ class MinuteEngineTest {
 
         assertThat(berlinMinute)
                 .isEqualTo(new BerlinMinute("YYRYYRYYRYY", "YYYY"));
+    }
+
+    @Test
+    void exception_message_states_valid_range_when_minutes_less_than_0() {
+        assertThatThrownBy(() -> minuteEngine.translate(-1))
+                .isInstanceOf(InvalidTimeException.class)
+                .hasMessage("Minutes must be between 0 and 59");
+    }
+
+    @Test
+    void exception_message_states_valid_range_when_minutes_greater_than_59() {
+        assertThatThrownBy(() -> minuteEngine.translate(60))
+                .isInstanceOf(InvalidTimeException.class)
+                .hasMessage("Minutes must be between 0 and 59");
     }
 }
