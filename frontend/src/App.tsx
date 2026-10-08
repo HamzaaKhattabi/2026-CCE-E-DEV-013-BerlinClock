@@ -13,6 +13,7 @@ function App() {
     try {
       setBerlinClock(await fetchBerlinClock(time))
     } catch (error) {
+      setBerlinClock(null)
       setError((error as Error).message)
     }
   }
