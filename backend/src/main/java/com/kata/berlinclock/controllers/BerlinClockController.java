@@ -4,9 +4,11 @@ import com.kata.berlinclock.domains.BerlinClock;
 import com.kata.berlinclock.domains.BerlinHour;
 import com.kata.berlinclock.domains.BerlinMinute;
 import com.kata.berlinclock.domains.BerlinSecond;
+import com.kata.berlinclock.domains.ErrorResponse;
 import com.kata.berlinclock.engines.HourEngine;
 import com.kata.berlinclock.engines.MinuteEngine;
 import com.kata.berlinclock.engines.SecondEngine;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,5 +51,11 @@ public class BerlinClockController {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handleInvalidTime() {
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleUnexpectedError(HttpServletRequest request) {
+        return new ErrorResponse(Instant.now(), request.getRequestURI(), "Unexpected error");
     }
 }
