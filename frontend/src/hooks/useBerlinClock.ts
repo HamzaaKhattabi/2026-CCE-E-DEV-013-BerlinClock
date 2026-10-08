@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { fetchBerlinClock, type BerlinClock } from '../api/berlinClockApi'
+import { fetchBerlinClock, type BerlinClockResponse } from '../api/berlinClockApi'
 
-type Result = { berlinClock: BerlinClock } | { error: string } | null
+type Result = { berlinClock: BerlinClockResponse } | { error: string } | null
 
 export function useBerlinClock() {
   const [result, setResult] = useState<Result>(null)

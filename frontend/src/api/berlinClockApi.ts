@@ -1,4 +1,4 @@
-export type BerlinClock = {
+export type BerlinClockResponse = {
   seconds: { firstRow: string }
   hours: { firstRow: string; secondRow: string }
   minutes: { firstRow: string; secondRow: string }
@@ -10,7 +10,7 @@ type ErrorResponse = {
   message: string
 }
 
-export async function fetchBerlinClock(time: string): Promise<BerlinClock> {
+export async function fetchBerlinClock(time: string): Promise<BerlinClockResponse> {
   const response = await fetch(`/berlin-clock?${new URLSearchParams({ time })}`)
 
   if (!response.ok) {
