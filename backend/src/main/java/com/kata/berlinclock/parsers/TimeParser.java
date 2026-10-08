@@ -10,6 +10,10 @@ import java.time.format.DateTimeParseException;
 public class TimeParser {
 
     public LocalTime parse(String time) {
+        if (time == null) {
+            throw new InvalidTimeException("Time must be a valid ISO-8601 time");
+        }
+
         try {
             return LocalTime.parse(time);
         } catch (DateTimeParseException exception) {
