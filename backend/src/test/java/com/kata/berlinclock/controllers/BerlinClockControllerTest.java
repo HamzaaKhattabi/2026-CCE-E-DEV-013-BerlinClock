@@ -90,4 +90,14 @@ class BerlinClockControllerTest {
                 .andExpect(jsonPath("$.path").isString())
                 .andExpect(jsonPath("$.message").isString());
     }
+
+    @Test
+    void error_message_is_returned_when_an_unexpected_error_occurs() throws Exception {
+        when(hourEngine.translate(anyInt()))
+                .thenThrow(new RuntimeException());
+
+        mockMvc.perform(get("/berlin-clock").param("time", "12:00:00"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.message").value("An unexpected error occurred"));
+    }
 }
