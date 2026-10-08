@@ -98,4 +98,28 @@ class HourEngineTest {
         assertThat(berlinHour)
                 .isEqualTo(new BerlinHour("RRRO", "OOOO"));
     }
+
+    @Test
+    void both_rows_combined_when_hours_is_16() {
+        BerlinHour berlinHour = hourEngine.translate(16);
+
+        assertThat(berlinHour)
+                .isEqualTo(new BerlinHour("RRRO", "ROOO"));
+    }
+
+    @Test
+    void both_rows_combined_when_hours_is_23() {
+        BerlinHour berlinHour = hourEngine.translate(23);
+
+        assertThat(berlinHour)
+                .isEqualTo(new BerlinHour("RRRR", "RRRO"));
+    }
+
+    @Test
+    void both_rows_combined_when_hours_is_0() {
+        BerlinHour berlinHour = hourEngine.translate(0);
+
+        assertThat(berlinHour)
+                .isEqualTo(new BerlinHour("OOOO", "OOOO"));
+    }
 }
