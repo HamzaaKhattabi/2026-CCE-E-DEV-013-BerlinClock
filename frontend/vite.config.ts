@@ -5,6 +5,11 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/berlin-clock': 'http://localhost:8080',
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,
