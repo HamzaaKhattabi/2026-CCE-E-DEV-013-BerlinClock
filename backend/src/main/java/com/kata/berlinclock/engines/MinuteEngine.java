@@ -10,16 +10,18 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
             throw new IllegalArgumentException();
         }
 
-        if (minutes == 59) {
-            return new BerlinMinute("YYRYYRYYRYY", null);
-        } else if (minutes == 0) {
-            return new BerlinMinute("OOOOOOOOOOO", null);
-        } else if (minutes == 15) {
-            return new BerlinMinute("YYROOOOOOOO", null);
-        } else if (minutes == 5) {
-            return new BerlinMinute("YOOOOOOOOOO", null);
+        int litLampCount = minutes / 5;
+        StringBuilder firstRow = new StringBuilder();
+        for (int i = 1; i <= 11; i++) {
+            if (i > litLampCount) {
+                firstRow.append("O");
+            } else if (i % 3 == 0) {
+                firstRow.append("R");
+            } else {
+                firstRow.append("Y");
+            }
         }
 
-        return new BerlinMinute(null, null);
+        return new BerlinMinute(firstRow.toString(), null);
     }
 }
