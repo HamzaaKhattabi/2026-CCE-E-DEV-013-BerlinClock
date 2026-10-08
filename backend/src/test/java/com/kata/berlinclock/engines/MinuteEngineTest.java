@@ -43,4 +43,11 @@ class MinuteEngineTest {
         assertThatThrownBy(() -> minuteEngine.translate(60))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void one_five_minutes_lamp_turned_on_when_minutes_is_5() {
+        BerlinMinute berlinMinute = minuteEngine.translate(5);
+        assertThat(berlinMinute.firstRow())
+                .isEqualTo("YOOOOOOOOOO");
+    }
 }
