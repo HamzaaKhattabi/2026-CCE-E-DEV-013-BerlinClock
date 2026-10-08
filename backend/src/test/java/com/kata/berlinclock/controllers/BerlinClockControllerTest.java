@@ -5,6 +5,7 @@ import com.kata.berlinclock.domains.BerlinHour;
 import com.kata.berlinclock.domains.BerlinMinute;
 import com.kata.berlinclock.domains.BerlinSecond;
 import com.kata.berlinclock.exceptions.GlobalExceptionHandler;
+import com.kata.berlinclock.exceptions.InvalidTimeException;
 import com.kata.berlinclock.parsers.TimeParser;
 import com.kata.berlinclock.services.BerlinClockService;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,7 +70,7 @@ class BerlinClockControllerTest {
     @Test
     void bad_request_with_error_message_is_returned_when_time_is_not_accepted() throws Exception {
         when(berlinClockService.translate(LocalTime.of(12, 0, 0)))
-                .thenThrow(new IllegalArgumentException("Hours must be between 0 and 23"));
+                .thenThrow(new InvalidTimeException("Hours must be between 0 and 23"));
 
         mockMvc.perform(get("/berlin-clock").param("time", "12:00:00"))
                 .andExpect(status().isBadRequest())
