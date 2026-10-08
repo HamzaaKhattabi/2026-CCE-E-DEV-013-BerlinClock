@@ -24,17 +24,16 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
         StringBuilder row = new StringBuilder();
 
         for (int position = 1; position <= FIVE_MINUTES_ROW_LAMP_COUNT; position++) {
-            row.append(fiveMinutesLamp(position, litLampCount).getIndicator());
+            if (position > litLampCount) {
+                row.append(Lamp.OFF.getIndicator());
+            } else if (position % QUARTER_LAMP_FREQUENCY == 0) {
+                row.append(Lamp.RED.getIndicator());
+            } else {
+                row.append(Lamp.YELLOW.getIndicator());
+            }
         }
 
         return row.toString();
-    }
-
-    private static Lamp fiveMinutesLamp(int position, int litLampCount) {
-        if (position > litLampCount) {
-            return Lamp.OFF;
-        }
-        return position % QUARTER_LAMP_FREQUENCY == 0 ? Lamp.RED : Lamp.YELLOW;
     }
 
     private static String translateOneMinutes(int minutes) {
