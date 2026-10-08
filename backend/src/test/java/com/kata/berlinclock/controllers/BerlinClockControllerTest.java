@@ -100,4 +100,18 @@ class BerlinClockControllerTest {
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.message").value("An unexpected error occurred"));
     }
+
+    @Test
+    void bad_request_is_returned_when_time_is_not_a_time() throws Exception {
+        mockMvc.perform(get("/berlin-clock").param("time", "abc"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Time must be a valid ISO-8601 time"));
+    }
+
+    @Test
+    void bad_request_is_returned_when_time_is_out_of_range() throws Exception {
+        mockMvc.perform(get("/berlin-clock").param("time", "25:00:00"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Time must be a valid ISO-8601 time"));
+    }
 }
