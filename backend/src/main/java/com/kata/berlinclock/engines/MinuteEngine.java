@@ -16,6 +16,8 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
             return new BerlinMinute("OOOOOOOOOOO", null);
         } else if (minutes == 15) {
             return new BerlinMinute("YYROOOOOOOO", null);
+        } else if (minutes == 5) {
+            return new BerlinMinute("YOOOOOOOOOO", null);
         }
 
         return new BerlinMinute(null, null);
