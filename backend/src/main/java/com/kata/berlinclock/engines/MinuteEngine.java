@@ -2,6 +2,7 @@ package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.Lamp;
 import com.kata.berlinclock.domains.BerlinMinute;
+import com.kata.berlinclock.exceptions.InvalidTimeException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +16,7 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
     @Override
     public BerlinMinute translate(int minutes) {
         if (minutes < 0 || minutes > 59) {
-            throw new IllegalArgumentException();
+            throw new InvalidTimeException();
         }
 
         return new BerlinMinute(translateFiveMinutes(minutes), translateOneMinutes(minutes));

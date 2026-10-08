@@ -2,6 +2,7 @@ package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.Lamp;
 import com.kata.berlinclock.domains.BerlinHour;
+import com.kata.berlinclock.exceptions.InvalidTimeException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class HourEngine implements ClockEngine<BerlinHour> {
     @Override
     public BerlinHour translate(int hours) {
         if (hours < 0 || hours > 23) {
-            throw new IllegalArgumentException();
+            throw new InvalidTimeException();
         }
         String firstRow = translateFiveHours(hours);
         String secondRow = translateOneHours(hours);
