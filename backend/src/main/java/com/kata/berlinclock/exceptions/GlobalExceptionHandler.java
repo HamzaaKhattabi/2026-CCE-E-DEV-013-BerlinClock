@@ -12,9 +12,9 @@ import java.time.Instant;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(InvalidTimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleInvalidTime(IllegalArgumentException exception, HttpServletRequest request) {
+    public ErrorResponse handleInvalidTime(InvalidTimeException exception, HttpServletRequest request) {
         return new ErrorResponse(Instant.now(), request.getRequestURI(), exception.getMessage());
     }
 
