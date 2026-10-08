@@ -71,4 +71,28 @@ class MinuteEngineTest {
         assertThat(berlinMinute.secondRow())
                 .isEqualTo("YYYY");
     }
+
+    @Test
+    void both_rows_combined_when_minutes_is_16() {
+        BerlinMinute berlinMinute = minuteEngine.translate(16);
+
+        assertThat(berlinMinute)
+                .isEqualTo(new BerlinMinute("YYROOOOOOOO", "YOOO"));
+    }
+
+    @Test
+    void both_rows_combined_when_minutes_is_34() {
+        BerlinMinute berlinMinute = minuteEngine.translate(34);
+
+        assertThat(berlinMinute)
+                .isEqualTo(new BerlinMinute("YYRYYROOOOO", "YYYY"));
+    }
+
+    @Test
+    void both_rows_combined_when_minutes_is_59() {
+        BerlinMinute berlinMinute = minuteEngine.translate(59);
+
+        assertThat(berlinMinute)
+                .isEqualTo(new BerlinMinute("YYRYYRYYRYY", "YYYY"));
+    }
 }
