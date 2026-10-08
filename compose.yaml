@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/localhost/8080'"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  e2e:
+    build:
+      context: ./frontend
+      dockerfile: docker/e2e.Dockerfile
+    profiles: [e2e]
+    environment:
+      BASE_URL: http://frontend
+    depends_on:
+      - frontend
