@@ -22,6 +22,6 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
             }
         }
 
-        return new BerlinMinute(firstRow.toString(), null);
+        return new BerlinMinute(firstRow.toString(), "OOOO");
     }
 }
