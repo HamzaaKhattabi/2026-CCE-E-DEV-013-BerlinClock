@@ -50,7 +50,8 @@ public class BerlinClockController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void handleInvalidTime() {
+    public ErrorResponse handleInvalidTime(IllegalArgumentException exception, HttpServletRequest request) {
+        return new ErrorResponse(Instant.now(), request.getRequestURI(), exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
