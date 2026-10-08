@@ -57,4 +57,11 @@ class MinuteEngineTest {
         assertThat(berlinMinute.firstRow())
                 .isEqualTo("YYRYYROOOOO");
     }
+
+    @Test
+    void all_one_minute_lamps_turned_off_when_minutes_is_0() {
+        BerlinMinute berlinMinute = minuteEngine.translate(0);
+        assertThat(berlinMinute.secondRow())
+                .isEqualTo("OOOO");
+    }
 }
