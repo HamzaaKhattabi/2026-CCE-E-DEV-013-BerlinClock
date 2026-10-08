@@ -7,12 +7,13 @@ import com.kata.berlinclock.domains.BerlinSecond;
 import com.kata.berlinclock.engines.HourEngine;
 import com.kata.berlinclock.engines.MinuteEngine;
 import com.kata.berlinclock.engines.SecondEngine;
+import com.kata.berlinclock.exceptions.InvalidTimeException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 @RestController
 public class BerlinClockController {
@@ -31,13 +32,16 @@ public class BerlinClockController {
 
     @GetMapping("/berlin-clock")
     public BerlinClock translate(@RequestParam("time") String time) {
-        List<Integer> timeParts = Arrays.stream(time.split(":"))
-                .map(Integer::parseInt)
-                .toList();
+        LocalTime localTime;
+        try {
+            localTime = LocalTime.parse(time);
+        } catch (DateTimeParseException exception) {
+            throw new InvalidTimeException("Time must be a valid ISO-8601 time");
+        }
 
-        BerlinSecond berlinSecond = secondEngine.translate(timeParts.get(2));
-        BerlinHour berlinHour = hourEngine.translate(timeParts.get(0));
-        BerlinMinute berlinMinute = minuteEngine.translate(timeParts.get(1));
+        BerlinSecond berlinSecond = secondEngine.translate(localTime.getSecond());
+        BerlinHour berlinHour = hourEngine.translate(localTime.getHour());
+        BerlinMinute berlinMinute = minuteEngine.translate(localTime.getMinute());
 
         return new BerlinClock(berlinSecond, berlinHour, berlinMinute);
     }
