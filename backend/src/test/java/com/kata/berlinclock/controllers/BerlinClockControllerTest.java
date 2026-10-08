@@ -6,14 +6,13 @@ import com.kata.berlinclock.domains.BerlinSecond;
 import com.kata.berlinclock.engines.HourEngine;
 import com.kata.berlinclock.engines.MinuteEngine;
 import com.kata.berlinclock.engines.SecondEngine;
+import com.kata.berlinclock.exceptions.GlobalExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,6 +38,7 @@ class BerlinClockControllerTest {
                         secondEngine,
                         hourEngine,
                         minuteEngine))
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
     }
 
