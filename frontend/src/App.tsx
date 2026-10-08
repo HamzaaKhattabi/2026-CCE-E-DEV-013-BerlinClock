@@ -1,9 +1,10 @@
 import { useState, type SubmitEvent } from 'react'
 import { fetchBerlinClock, type BerlinClock } from './api/berlinClockApi'
 
+type Result = { berlinClock: BerlinClock } | { error: string } | null
+
 function App() {
-  const [berlinClock, setBerlinClock] = useState<BerlinClock | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [result, setResult] = useState<Result>(null)
 
   // The time is only read on submit, so the input stays uncontrolled:
   // no state or ref to keep in sync, the form already holds the value.
@@ -11,11 +12,9 @@ function App() {
     event.preventDefault()
     const time = new FormData(event.currentTarget).get('time') as string
     try {
-      setBerlinClock(await fetchBerlinClock(time))
-      setError(null)
+      setResult({ berlinClock: await fetchBerlinClock(time) })
     } catch (error) {
-      setBerlinClock(null)
-      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
+      setResult({ error: error instanceof Error ? error.message : 'An unexpected error occurred' })
     }
   }
 
@@ -26,15 +25,15 @@ function App() {
         <label htmlFor="time">Time</label>
         <input id="time" name="time" />
         <button type="submit">Show</button>
-        {error && <p role="alert">{error}</p>}
+        {result && 'error' in result && <p role="alert">{result.error}</p>}
       </form>
-      {berlinClock && (
+      {result && 'berlinClock' in result && (
         <div>
-          <p>{berlinClock.seconds.firstRow}</p>
-          <p>{berlinClock.hours.firstRow}</p>
-          <p>{berlinClock.hours.secondRow}</p>
-          <p>{berlinClock.minutes.firstRow}</p>
-          <p>{berlinClock.minutes.secondRow}</p>
+          <p>{result.berlinClock.seconds.firstRow}</p>
+          <p>{result.berlinClock.hours.firstRow}</p>
+          <p>{result.berlinClock.hours.secondRow}</p>
+          <p>{result.berlinClock.minutes.firstRow}</p>
+          <p>{result.berlinClock.minutes.secondRow}</p>
         </div>
       )}
     </main>
