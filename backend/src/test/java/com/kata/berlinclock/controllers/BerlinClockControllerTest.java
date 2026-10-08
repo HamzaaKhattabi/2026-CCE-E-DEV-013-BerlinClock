@@ -72,10 +72,10 @@ class BerlinClockControllerTest {
 
     @Test
     void bad_request_with_error_message_is_returned_when_time_is_not_accepted() throws Exception {
-        when(hourEngine.translate(25))
+        when(hourEngine.translate(12))
                 .thenThrow(new IllegalArgumentException("Hours must be between 0 and 23"));
 
-        mockMvc.perform(get("/berlin-clock").param("time", "25:00:00"))
+        mockMvc.perform(get("/berlin-clock").param("time", "12:00:00"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Hours must be between 0 and 23"));
     }
