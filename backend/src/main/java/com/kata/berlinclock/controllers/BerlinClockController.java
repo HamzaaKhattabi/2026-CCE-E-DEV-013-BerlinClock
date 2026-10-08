@@ -4,12 +4,14 @@ import com.kata.berlinclock.domains.BerlinClock;
 import com.kata.berlinclock.domains.BerlinHour;
 import com.kata.berlinclock.domains.BerlinMinute;
 import com.kata.berlinclock.domains.BerlinSecond;
-import com.kata.berlinclock.engines.ClockEngine;
 import com.kata.berlinclock.engines.HourEngine;
 import com.kata.berlinclock.engines.MinuteEngine;
 import com.kata.berlinclock.engines.SecondEngine;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -41,5 +43,10 @@ public class BerlinClockController {
         BerlinMinute berlinMinute = minuteEngine.translate(timeParts.get(1));
 
         return new BerlinClock(berlinSecond, berlinHour, berlinMinute);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void handleInvalidTime() {
     }
 }
