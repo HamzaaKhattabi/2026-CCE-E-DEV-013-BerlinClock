@@ -29,3 +29,8 @@ coverage/
 *.iml
 *.iws
 *.ipr
+
+### Playwright ###
+playwright-report/
+test-results/
+blob-report/
