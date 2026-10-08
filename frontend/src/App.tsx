@@ -3,13 +3,18 @@ import { fetchBerlinClock, type BerlinClock } from './api/berlinClockApi'
 
 function App() {
   const [berlinClock, setBerlinClock] = useState<BerlinClock | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   // The time is only read on submit, so the input stays uncontrolled:
   // no state or ref to keep in sync, the form already holds the value.
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     const time = new FormData(event.currentTarget).get('time') as string
-    setBerlinClock(await fetchBerlinClock(time))
+    try {
+      setBerlinClock(await fetchBerlinClock(time))
+    } catch (error) {
+      setError((error as Error).message)
+    }
   }
 
   return (
@@ -19,6 +24,7 @@ function App() {
         <label htmlFor="time">Time</label>
         <input id="time" name="time" />
         <button type="submit">Show</button>
+        {error && <p role="alert">{error}</p>}
       </form>
       {berlinClock && (
         <div>
