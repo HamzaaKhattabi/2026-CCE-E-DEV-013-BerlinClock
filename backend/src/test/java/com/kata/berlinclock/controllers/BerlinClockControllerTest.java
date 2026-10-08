@@ -26,4 +26,15 @@ class BerlinClockControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.seconds.firstRow").value("Y"));
     }
+
+    @Test
+    void berlin_clock_matches_the_highest_time_provided() throws Exception {
+        mockMvc.perform(get("/berlin-clock").param("time", "23:59:59"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.seconds.firstRow").value("O"))
+                .andExpect(jsonPath("$.hours.firstRow").value("RRRR"))
+                .andExpect(jsonPath("$.hours.secondRow").value("RRRO"))
+                .andExpect(jsonPath("$.minutes.firstRow").value("YYRYYRYYRYY"))
+                .andExpect(jsonPath("$.minutes.secondRow").value("YYYY"));
+    }
 }
