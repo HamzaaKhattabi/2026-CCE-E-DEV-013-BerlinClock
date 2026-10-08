@@ -64,4 +64,11 @@ class MinuteEngineTest {
         assertThat(berlinMinute.secondRow())
                 .isEqualTo("OOOO");
     }
+
+    @Test
+    void four_one_minute_lamps_turned_on_when_minutes_is_4() {
+        BerlinMinute berlinMinute = minuteEngine.translate(4);
+        assertThat(berlinMinute.secondRow())
+                .isEqualTo("YYYY");
+    }
 }
