@@ -57,6 +57,6 @@ public class BerlinClockController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleUnexpectedError(HttpServletRequest request) {
-        return new ErrorResponse(Instant.now(), request.getRequestURI(), "Unexpected error");
+        return new ErrorResponse(Instant.now(), request.getRequestURI(), "An unexpected error occurred");
     }
 }
