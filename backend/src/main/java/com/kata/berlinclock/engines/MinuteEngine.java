@@ -8,15 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class MinuteEngine implements ClockEngine<BerlinMinute> {
 
+    private static final int MIN_MINUTES = 0;
+    private static final int MAX_MINUTES = 59;
     private static final int FIVE_MINUTES_ROW_LAMP_COUNT = 11;
     private static final int ONE_MINUTE_ROW_LAMP_COUNT = 4;
     private static final int MINUTES_PER_FIVE_MINUTES_LAMP = 5;
     private static final int QUARTER_LAMP_FREQUENCY = 3;
 
+    private static final String INVALID_MINUTES_MESSAGE =
+            "Minutes must be between " + MIN_MINUTES + " and " + MAX_MINUTES;
+
     @Override
     public BerlinMinute translate(int minutes) {
-        if (minutes < 0 || minutes > 59) {
-            throw new InvalidTimeException("Minutes must be between 0 and 59");
+        if (minutes < MIN_MINUTES || minutes > MAX_MINUTES) {
+            throw new InvalidTimeException(INVALID_MINUTES_MESSAGE);
         }
 
         return new BerlinMinute(translateFiveMinutes(minutes), translateOneMinutes(minutes));
