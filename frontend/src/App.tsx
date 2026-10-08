@@ -15,7 +15,7 @@ function App() {
       setError(null)
     } catch (error) {
       setBerlinClock(null)
-      setError((error as Error).message)
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
     }
   }
 
