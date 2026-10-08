@@ -16,7 +16,7 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
     @Override
     public BerlinMinute translate(int minutes) {
         if (minutes < 0 || minutes > 59) {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("Minutes must be between 0 and 59");
         }
 
         return new BerlinMinute(translateFiveMinutes(minutes), translateOneMinutes(minutes));

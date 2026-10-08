@@ -14,7 +14,7 @@ public class HourEngine implements ClockEngine<BerlinHour> {
     @Override
     public BerlinHour translate(int hours) {
         if (hours < 0 || hours > 23) {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("Hours must be between 0 and 23");
         }
         String firstRow = translateFiveHours(hours);
         String secondRow = translateOneHours(hours);

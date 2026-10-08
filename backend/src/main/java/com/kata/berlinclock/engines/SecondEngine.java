@@ -14,7 +14,7 @@ public class SecondEngine implements ClockEngine<BerlinSecond> {
         boolean isEven = seconds % 2 == 0;
 
         if (seconds < 0 || seconds > 59) {
-            throw new InvalidTimeException();
+            throw new InvalidTimeException("Seconds must be between 0 and 59");
         }
 
         String lampIndicator = isEven ? Lamp.YELLOW.getIndicator() : Lamp.OFF.getIndicator();
