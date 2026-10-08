@@ -121,4 +121,11 @@ class BerlinClockControllerTest {
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.message").value("An unexpected error occurred"));
     }
+
+    @Test
+    void bad_request_is_returned_when_time_is_missing() throws Exception {
+        mockMvc.perform(get("/berlin-clock"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Time parameter is required"));
+    }
 }
