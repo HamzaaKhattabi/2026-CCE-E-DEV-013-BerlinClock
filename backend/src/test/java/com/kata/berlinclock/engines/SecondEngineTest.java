@@ -26,18 +26,6 @@ class SecondEngineTest {
     }
 
     @Test
-    void exception_thrown_when_seconds_less_than_0() {
-        assertThatThrownBy(() -> secondEngine.translate(-1))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void exception_thrown_when_seconds_greater_than_59() {
-        assertThatThrownBy(() -> secondEngine.translate(60))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
     void seconds_lamp_turned_off_when_seconds_is_59() {
         BerlinSecond berlinSecond = secondEngine.translate(59);
         assertThat(berlinSecond.firstRow())

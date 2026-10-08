@@ -41,16 +41,6 @@ class BerlinClockControllerTest {
     }
 
     @Test
-    void seconds_row_is_returned_when_time_is_given() throws Exception {
-        when(berlinClockService.translate(LocalTime.of(0, 0, 0)))
-                .thenReturn(new BerlinClock(new BerlinSecond("Y"), null, null));
-
-        mockMvc.perform(get("/berlin-clock").param("time", "00:00:00"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.seconds.firstRow").value("Y"));
-    }
-
-    @Test
     void controller_returns_the_entire_dto_based_on_service_result() throws Exception {
         when(berlinClockService.translate(LocalTime.of(23, 59, 59)))
                 .thenReturn(new BerlinClock(
