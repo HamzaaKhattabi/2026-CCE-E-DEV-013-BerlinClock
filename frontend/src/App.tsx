@@ -1,4 +1,5 @@
 import type { SubmitEvent } from 'react'
+import BerlinClock from './components/BerlinClock'
 import { useBerlinClock } from './hooks/useBerlinClock'
 
 function App() {
@@ -20,15 +21,7 @@ function App() {
         <button type="submit">Show</button>
         {error && <p role="alert">{error}</p>}
       </form>
-      {berlinClock && (
-        <div>
-          <p>{berlinClock.seconds.firstRow}</p>
-          <p>{berlinClock.hours.firstRow}</p>
-          <p>{berlinClock.hours.secondRow}</p>
-          <p>{berlinClock.minutes.firstRow}</p>
-          <p>{berlinClock.minutes.secondRow}</p>
-        </div>
-      )}
+      {berlinClock && <BerlinClock berlinClock={berlinClock} />}
     </main>
   )
 }
