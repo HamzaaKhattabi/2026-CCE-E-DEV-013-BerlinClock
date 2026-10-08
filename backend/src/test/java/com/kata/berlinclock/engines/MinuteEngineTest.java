@@ -40,7 +40,7 @@ class MinuteEngineTest {
 
     @Test
     void exception_thrown_when_minutes_greater_than_59() {
-        assertThatThrownBy(() -> minuteEngine.translate(59))
+        assertThatThrownBy(() -> minuteEngine.translate(60))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
