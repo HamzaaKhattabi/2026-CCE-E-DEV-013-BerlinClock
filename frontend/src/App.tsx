@@ -12,6 +12,7 @@ function App() {
     const time = new FormData(event.currentTarget).get('time') as string
     try {
       setBerlinClock(await fetchBerlinClock(time))
+      setError(null)
     } catch (error) {
       setBerlinClock(null)
       setError((error as Error).message)
