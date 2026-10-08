@@ -22,6 +22,12 @@ public class MinuteEngine implements ClockEngine<BerlinMinute> {
             }
         }
 
-        return new BerlinMinute(firstRow.toString(), "OOOO");
+        int oneMinuteLitCount = minutes % 5;
+        StringBuilder secondRow = new StringBuilder();
+        for (int i = 1; i <= 4; i++) {
+            secondRow.append(i <= oneMinuteLitCount ? "Y" : "O");
+        }
+
+        return new BerlinMinute(firstRow.toString(), secondRow.toString());
     }
 }
