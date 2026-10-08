@@ -34,4 +34,27 @@ describe('App', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Time must be a valid ISO-8601 time')
   })
+
+  it('previous berlin clock is cleared when the time is rejected', async () => {
+    vi.mocked(fetchBerlinClock)
+      .mockResolvedValueOnce({
+        seconds: { firstRow: 'Y' },
+        hours: { firstRow: 'RRRO', secondRow: 'ROOO' },
+        minutes: { firstRow: 'YYRYYROOOOO', secondRow: 'YYYY' },
+      })
+      .mockRejectedValueOnce(new Error('Time must be a valid ISO-8601 time'))
+    render(<App />)
+    const timeInput = screen.getByLabelText('Time')
+    const showButton = screen.getByRole('button', { name: 'Show' })
+
+    await userEvent.type(timeInput, '16:34:00')
+    await userEvent.click(showButton)
+    await screen.findByText('RRRO')
+    await userEvent.clear(timeInput)
+    await userEvent.type(timeInput, 'abc')
+    await userEvent.click(showButton)
+    await screen.findByRole('alert')
+
+    expect(screen.queryByText('RRRO')).not.toBeInTheDocument()
+  })
 })
