@@ -34,3 +34,10 @@ for (const { time, lamps } of KATA_EXAMPLES) {
     expect(await readLamps(page)).toBe(lamps)
   })
 }
+
+test('error message from the backend is shown for an invalid time', async ({ page }) => {
+  await showBerlinClock(page, 'abc')
+
+  await expect(page.getByRole('alert')).toHaveText('Time must be a valid ISO-8601 time')
+  await expect(page.getByRole('img')).toHaveCount(0)
+})
