@@ -78,4 +78,15 @@ class BerlinClockControllerTest {
         mockMvc.perform(get("/berlin-clock").param("time", "25:00:00"))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void error_dto_has_timestamp_path_and_message_as_strings() throws Exception {
+        when(hourEngine.translate(anyInt()))
+                .thenThrow(new RuntimeException());
+
+        mockMvc.perform(get("/berlin-clock").param("time", "12:00:00"))
+                .andExpect(jsonPath("$.timestamp").isString())
+                .andExpect(jsonPath("$.path").isString())
+                .andExpect(jsonPath("$.message").isString());
+    }
 }
