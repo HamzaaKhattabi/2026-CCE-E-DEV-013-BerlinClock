@@ -50,4 +50,11 @@ class MinuteEngineTest {
         assertThat(berlinMinute.firstRow())
                 .isEqualTo("YOOOOOOOOOO");
     }
+
+    @Test
+    void six_five_minutes_lamps_turned_on_when_minutes_is_30() {
+        BerlinMinute berlinMinute = minuteEngine.translate(30);
+        assertThat(berlinMinute.firstRow())
+                .isEqualTo("YYRYYROOOOO");
+    }
 }
