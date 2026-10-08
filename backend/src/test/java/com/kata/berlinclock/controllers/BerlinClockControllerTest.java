@@ -1,10 +1,21 @@
 package com.kata.berlinclock.controllers;
 
+import com.kata.berlinclock.domains.BerlinHour;
+import com.kata.berlinclock.domains.BerlinMinute;
+import com.kata.berlinclock.domains.BerlinSecond;
+import com.kata.berlinclock.engines.HourEngine;
+import com.kata.berlinclock.engines.MinuteEngine;
+import com.kata.berlinclock.engines.SecondEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -13,22 +24,43 @@ class BerlinClockControllerTest {
 
     MockMvc mockMvc;
 
+    SecondEngine secondEngine;
+    HourEngine hourEngine;
+    MinuteEngine minuteEngine;
+
     @BeforeEach
     void setup() {
+        secondEngine = mock(SecondEngine.class);
+        hourEngine = mock(HourEngine.class);
+        minuteEngine = mock(MinuteEngine.class);
+
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new BerlinClockController())
+                .standaloneSetup(new BerlinClockController(
+                        secondEngine,
+                        hourEngine,
+                        minuteEngine))
                 .build();
     }
 
     @Test
     void seconds_row_is_returned_when_time_is_given() throws Exception {
+        when(secondEngine.translate(anyInt()))
+                .thenReturn(new BerlinSecond("Y"));
+
         mockMvc.perform(get("/berlin-clock").param("time", "00:00:00"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.seconds.firstRow").value("Y"));
     }
 
     @Test
-    void berlin_clock_matches_the_highest_time_provided() throws Exception {
+    void controller_return_the_entire_dto_based_on_engine_results() throws Exception {
+        when(secondEngine.translate(anyInt()))
+                .thenReturn(new BerlinSecond("O"));
+        when(hourEngine.translate(anyInt()))
+                .thenReturn(new BerlinHour("RRRR", "RRRO"));
+        when(minuteEngine.translate(anyInt()))
+                .thenReturn(new BerlinMinute("YYRYYRYYRYY", "YYYY"));
+
         mockMvc.perform(get("/berlin-clock").param("time", "23:59:59"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.seconds.firstRow").value("O"))

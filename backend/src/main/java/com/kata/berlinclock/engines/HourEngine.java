@@ -2,7 +2,9 @@ package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.Lamp;
 import com.kata.berlinclock.domains.BerlinHour;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HourEngine implements ClockEngine<BerlinHour> {
 
     private static final int ROW_LAMP_COUNT = 4;

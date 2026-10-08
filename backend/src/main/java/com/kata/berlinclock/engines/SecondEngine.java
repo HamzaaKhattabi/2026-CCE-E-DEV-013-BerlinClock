@@ -3,7 +3,9 @@ package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.Lamp;
 import com.kata.berlinclock.domains.BerlinSecond;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SecondEngine implements ClockEngine<BerlinSecond> {
 
     @Override

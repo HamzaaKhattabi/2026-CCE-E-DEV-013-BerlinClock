@@ -2,7 +2,9 @@ package com.kata.berlinclock.engines;
 
 import com.kata.berlinclock.Lamp;
 import com.kata.berlinclock.domains.BerlinMinute;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MinuteEngine implements ClockEngine<BerlinMinute> {
 
     private static final int FIVE_MINUTES_ROW_LAMP_COUNT = 11;
