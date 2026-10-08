@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { fetchBerlinClock } from './api/berlinClockApi'
@@ -18,11 +18,11 @@ describe('App', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Show' }))
 
     expect(fetchBerlinClock).toHaveBeenCalledWith('16:34:00')
-    expect(await screen.findByText('Y')).toBeInTheDocument()
-    expect(screen.getByText('RRRO')).toBeInTheDocument()
-    expect(screen.getByText('ROOO')).toBeInTheDocument()
-    expect(screen.getByText('YYRYYROOOOO')).toBeInTheDocument()
-    expect(screen.getByText('YYYY')).toBeInTheDocument()
+    const fiveHoursRow = await screen.findByRole('group', { name: 'Five hours' })
+    const lamps = within(fiveHoursRow)
+      .getAllByRole('img')
+      .map((lamp) => lamp.getAttribute('aria-label'))
+    expect(lamps).toEqual(['Red lamp', 'Red lamp', 'Red lamp', 'Off lamp'])
   })
 
   it('error message is displayed when the time is rejected', async () => {
@@ -49,13 +49,13 @@ describe('App', () => {
 
     await userEvent.type(timeInput, '16:34:00')
     await userEvent.click(showButton)
-    await screen.findByText('RRRO')
+    await screen.findByRole('group', { name: 'Five hours' })
     await userEvent.clear(timeInput)
     await userEvent.type(timeInput, 'abc')
     await userEvent.click(showButton)
     await screen.findByRole('alert')
 
-    expect(screen.queryByText('RRRO')).not.toBeInTheDocument()
+    expect(screen.queryByRole('group', { name: 'Five hours' })).not.toBeInTheDocument()
   })
 
   it('previous error message is cleared when a valid time is submitted', async () => {
@@ -76,7 +76,7 @@ describe('App', () => {
     await userEvent.clear(timeInput)
     await userEvent.type(timeInput, '16:34:00')
     await userEvent.click(showButton)
-    await screen.findByText('RRRO')
+    await screen.findByRole('group', { name: 'Five hours' })
 
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   })
