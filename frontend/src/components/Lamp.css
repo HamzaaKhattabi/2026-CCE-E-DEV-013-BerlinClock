@@ -1,0 +1,19 @@
+.lamp {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid #555;
+}
+
+.lamp-yellow {
+  background: gold;
+}
+
+.lamp-red {
+  background: crimson;
+}
+
+.lamp-off {
+  background: lightgray;
+}
