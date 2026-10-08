@@ -111,4 +111,14 @@ class BerlinClockControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Time must be a valid ISO-8601 time"));
     }
+
+    @Test
+    void internal_server_error_is_returned_when_an_unexpected_illegal_argument_occurs() throws Exception {
+        when(berlinClockService.translate(any(LocalTime.class)))
+                .thenThrow(new IllegalArgumentException("Internal detail"));
+
+        mockMvc.perform(get("/berlin-clock").param("time", "12:00:00"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.message").value("An unexpected error occurred"));
+    }
 }
