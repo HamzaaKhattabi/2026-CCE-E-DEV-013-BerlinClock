@@ -24,4 +24,14 @@ describe('App', () => {
     expect(screen.getByText('YYRYYROOOOO')).toBeInTheDocument()
     expect(screen.getByText('YYYY')).toBeInTheDocument()
   })
+
+  it('error message is displayed when the time is rejected', async () => {
+    vi.mocked(fetchBerlinClock).mockRejectedValue(new Error('Time must be a valid ISO-8601 time'))
+    render(<App />)
+
+    await userEvent.type(screen.getByLabelText('Time'), 'abc')
+    await userEvent.click(screen.getByRole('button', { name: 'Show' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Time must be a valid ISO-8601 time')
+  })
 })
