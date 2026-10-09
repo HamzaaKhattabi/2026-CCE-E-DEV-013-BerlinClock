@@ -28,4 +28,16 @@ describe('fetchBerlinClock', () => {
 
     await expect(fetchBerlinClock('abc')).rejects.toThrow('Time must be a valid ISO-8601 time')
   })
+
+  it('server unreachable message is thrown when the error response is not json', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('', { status: 502 })))
+
+    await expect(fetchBerlinClock('16:34:00')).rejects.toThrow('Unable to reach the server')
+  })
+
+  it('server unreachable message is thrown when the network fails', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
+
+    await expect(fetchBerlinClock('16:34:00')).rejects.toThrow('Unable to reach the server')
+  })
 })
