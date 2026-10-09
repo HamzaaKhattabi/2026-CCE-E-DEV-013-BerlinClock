@@ -1,5 +1,6 @@
 import type { SubmitEvent } from 'react'
 import BerlinClock from './components/BerlinClock'
+import ErrorBoundary from './components/ErrorBoundary'
 import { useBerlinClock } from './hooks/useBerlinClock'
 
 function App() {
@@ -21,7 +22,11 @@ function App() {
         <button type="submit">Show</button>
         {error && <p role="alert">{error}</p>}
       </form>
-      {berlinClock && <BerlinClock berlinClock={berlinClock} />}
+      {berlinClock && (
+        <ErrorBoundary fallback={<p role="alert">The clock cannot be displayed</p>}>
+          <BerlinClock berlinClock={berlinClock} />
+        </ErrorBoundary>
+      )}
     </main>
   )
 }
