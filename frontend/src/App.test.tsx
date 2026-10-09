@@ -80,4 +80,19 @@ describe('App', () => {
 
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   })
+
+  it('error message is displayed when the clock cannot be shown', async () => {
+    vi.mocked(fetchBerlinClock).mockResolvedValue({
+      seconds: { firstRow: 'Y' },
+      hours: { firstRow: 'RRXO', secondRow: 'ROOO' },
+      minutes: { firstRow: 'YYRYYROOOOO', secondRow: 'YYYY' },
+    })
+    render(<App />)
+
+    await userEvent.type(screen.getByLabelText('Time'), '16:34:00')
+    await userEvent.click(screen.getByRole('button', { name: 'Show' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('The clock cannot be displayed')
+    expect(screen.getByLabelText('Time')).toBeInTheDocument()
+  })
 })
