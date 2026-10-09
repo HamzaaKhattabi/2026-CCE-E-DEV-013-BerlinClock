@@ -23,7 +23,11 @@ function App() {
         {error && <p role="alert">{error}</p>}
       </form>
       {berlinClock && (
-        <ErrorBoundary fallback={<p role="alert">The clock cannot be displayed</p>}>
+        // A new clock gets a new boundary, so a previous display error does not stick.
+        <ErrorBoundary
+          key={JSON.stringify(berlinClock)}
+          fallback={<p role="alert">The clock cannot be displayed</p>}
+        >
           <BerlinClock berlinClock={berlinClock} />
         </ErrorBoundary>
       )}
