@@ -95,4 +95,28 @@ describe('App', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('The clock cannot be displayed')
     expect(screen.getByLabelText('Time')).toBeInTheDocument()
   })
+
+  it('new clock is shown after a clock that could not be displayed', async () => {
+    vi.mocked(fetchBerlinClock)
+      .mockResolvedValueOnce({
+        seconds: { firstRow: 'Y' },
+        hours: { firstRow: 'RRXO', secondRow: 'ROOO' },
+        minutes: { firstRow: 'YYRYYROOOOO', secondRow: 'YYYY' },
+      })
+      .mockResolvedValueOnce({
+        seconds: { firstRow: 'Y' },
+        hours: { firstRow: 'RRRO', secondRow: 'ROOO' },
+        minutes: { firstRow: 'YYRYYROOOOO', secondRow: 'YYYY' },
+      })
+    render(<App />)
+    const showButton = screen.getByRole('button', { name: 'Show' })
+
+    await userEvent.type(screen.getByLabelText('Time'), '16:34:00')
+    await userEvent.click(showButton)
+    await screen.findByRole('alert')
+    await userEvent.click(showButton)
+
+    expect(await screen.findByRole('group', { name: 'Five hours' })).toBeInTheDocument()
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
 })
